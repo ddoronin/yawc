@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {WssModel} from './model';
+import { WssModel } from './model';
 import { useRxStateResult } from '@reonomy/reactive-hooks';
 import { Button, Input, TextArea } from '../components';
+import { Log } from './Log';
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
 `
 
-const wss = new WssModel<string>();
+const ConnectUri = styled.div`
+    display: flex;
+    > input {
+        flex: 1;
+    }
+`;
 
-function WSS() {
-    const [uri, setUri] = useState('');
+export interface WssProps<Message> {
+    model: WssModel<Message>
+}
+
+function WSS({model: wss}:  WssProps<string>) {
+    const [uri, setUri] = useState('ws://localhost:8081/greeter');
     const [message, setMessage] = useState('');
-    const log = useRxStateResult(wss.log$)
+    const log = useRxStateResult(wss.log$) || [];
 
     const connect = () => wss.connect(uri)
-    const disconnect = () => wss.disconnect;
     const send = () => wss.send(message);
 
     return (
         <Wrapper>
-            <Input type="text" placeholder="ws://..." defaultValue={uri} onChange={e => setUri(e.target.value)} />
-            <Button type="button" onClick={connect}>Connect</Button>
-            <Button type="button" onClick={disconnect}>Disconnect</Button>
+            <ConnectUri>
+                <Input type="text" placeholder="ws://..." defaultValue={uri} onChange={e => setUri(e.target.value)} />
+                <Button type="button" onClick={connect}>Connect</Button>
+            </ConnectUri>
             <TextArea onChange={e => setMessage(e.target.value)}/>
             <Button type="button" onClick={send}>Send</Button>
-            <div>
-                {log && log.map(({type, message, ts}) => {
-                    return (
-                        <div key={ts}>
-                            <small>{type} - {new Date(ts).toLocaleTimeString()}</small>
-                            <div>{message}</div>
-                            <hr/>
-                        </div>
-                    );
-                })}
-            </div>
+            <Log source={log} render={(text: string) => text}/>
         </Wrapper>
     );
 }

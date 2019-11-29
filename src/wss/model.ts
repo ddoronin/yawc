@@ -3,7 +3,7 @@ import { scan, merge, map } from 'rxjs/operators';
 import { computed } from '../decorators/computed';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
-interface ILog<Message> {
+export interface ILog<Message> {
     type: string, 
     ts: number,
     message: Message

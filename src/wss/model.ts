@@ -1,4 +1,4 @@
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { scan, merge, map } from 'rxjs/operators';
 import { computed } from '../decorators/computed';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
@@ -13,7 +13,8 @@ export class WssModel<Message> {
     private currentWSS$: WebSocketSubject<Message> | null = null;
     private req$ = new Subject<Message>();
     private res$ = new Subject<Message>();
-    private subscriptions: Subscription[] = []
+    private subscriptions: Subscription[] = [];
+    private connected$ = new BehaviorSubject(false);
 
     /**
      * Sends a message to a websocket.
@@ -31,9 +32,11 @@ export class WssModel<Message> {
      */
     public disconnect() {
         if (this.currentWSS$) {
+            this.currentWSS$.unsubscribe();
             this.currentWSS$.complete();
             this.subscriptions.forEach(subscription => subscription.unsubscribe());
             this.subscriptions = [];
+            this.connected$.next(false);
         }
     }
 
@@ -49,13 +52,35 @@ export class WssModel<Message> {
                 serializer: t => t as any, 
                 deserializer: (e: MessageEvent) => e.data,
                 openObserver: {
-                    next: () => console.log(`connected to ${uri}`)
+                    next: () => {
+                        console.log(`connected to ${uri}`);
+                        this.connected$.next(true);
+                    }
                 }
             });
 
             this.subscriptions.push(this.req$.subscribe(this.currentWSS$));
-            this.subscriptions.push(this.currentWSS$.subscribe(this.res$));
+            this.subscriptions.push(this.currentWSS$.subscribe({
+                next: data => this.res$.next(data),
+                error: (error) => {
+                    console.log('error', error);
+                    this.disconnect();
+                },
+                complete: () => {
+                    console.log('complete');
+                    this.disconnect();
+                }
+            }));
         }
+    }
+
+    private clearCommand$ = new Subject<'clear'>()
+    public clearLog() {
+        this.clearCommand$.next('clear');
+    }
+
+    @computed public get isConnected$() {
+        return this.connected$.asObservable();
     }
 
     @computed public get log$() {
@@ -64,8 +89,10 @@ export class WssModel<Message> {
 
         return req$$.pipe(
             merge(res$$),
-            scan((acc: ILog<Message>[], val: ILog<Message>) => {
-                return [val,...acc]
+            merge(this.clearCommand$),
+            scan((acc: ILog<Message>[], val: ILog<Message> | 'clear') => {
+                if (val === 'clear') return [];
+                return [...acc, val]
             }, [])
         )
     }

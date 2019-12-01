@@ -17,6 +17,7 @@
     "typescript": "3.7.2"
   },
   "scripts": {
+    "app": "electron ./app.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -36,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^7.1.2"
   }
 }

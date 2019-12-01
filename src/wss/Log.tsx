@@ -5,6 +5,7 @@ import { ILog } from './model';
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100%;
 `
 
 const NoRecords = styled.div`
@@ -79,7 +80,6 @@ function Channel<Message>({type, message, length, ts}: MessageProps<Message>) {
             <LenCol>{length}</LenCol>
             <TimeCol><small>{date.toLocaleTimeString()}</small>.<strong>{pad(ms, 3)}</strong></TimeCol>
         </Row>
-        
     )
 }
 

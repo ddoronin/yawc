@@ -12,7 +12,7 @@ export const Input = styled.input`
     transition: all .3s cubic-bezier(.645, .045, .355, 1);
     user-select: none;
     touch-action: manipulation;
-    height: 32px;
+    height: 30px;
     padding: 0 15px;
     font-size: 14px;
     border-radius: 4px;

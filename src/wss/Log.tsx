@@ -8,10 +8,6 @@ const Wrapper = styled.div`
     width: 100%;
 `
 
-const NoRecords = styled.div`
-    display: 1;
-`
-
 interface RowProps {
     isReq?: boolean;
     isHeader?: boolean;
@@ -44,7 +40,7 @@ const LenCol = styled.div`
 `;
 
 const TimeCol = styled.div`
-    width: 150px;
+    width: 100px;
 `;
 
 export interface LogProps {
@@ -99,6 +95,16 @@ function Channel<Message>({type, message, length, ts}: MessageProps<Message>) {
     )
 }
 
+function Empty() {
+    return (
+        <Row>
+            <DataCol>--</DataCol>
+            <LenCol>--</LenCol>
+            <TimeCol>--</TimeCol>
+        </Row>
+    )
+}
+
 function Header() {
     return (
         <Row isHeader>
@@ -113,7 +119,7 @@ export function Log<Message>({source}: LogProps) {
     return (
         <Wrapper>
             <Header/>
-            {source.length === 0 && <NoRecords>No Records</NoRecords>}
+            {source.length === 0 && <Empty/>}
             {source.length > 0 && source.map(({type, message, ts}) => {
                 return <Channel key={ts} type={type} message={message} length={(message as any).length} ts={ts}/>;
             })}

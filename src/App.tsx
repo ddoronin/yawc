@@ -1,6 +1,6 @@
 import React from 'react';
 import WSS from './wss';
-import { WssModel } from './wss/model';
+import WsLogger from './models/ws-logger';
 import { theme } from './components';
 import styled from 'styled-components';
 
@@ -12,7 +12,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <H1>YAWC</H1>
-      <WSS model={new WssModel<string>()}/>
+      <WSS model={new WsLogger<string>()}/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { WssModel } from './model';
+import WsLogger from '../models/ws-logger';
 import { useRxStateResult } from '@reonomy/reactive-hooks';
 import { theme, Button, Input, TextArea } from '../components';
 import { Log } from './Log';
@@ -51,34 +51,60 @@ const SendButton = styled(Button)`
 `;
 
 export interface WssProps<Message> {
-    model: WssModel<Message>
+    model: WsLogger<Message>
 }
 
 function WSS({model: wss}:  WssProps<string>) {
-    const [uri, setUri] = useState('ws://localhost:8081/greeter');
+    const [uri, setUri] = useState('');
     const [message, setMessage] = useState('');
     const log = useRxStateResult(wss.log$) || [];
     const connected = useRxStateResult(wss.isConnected$) || false;
 
-    const connect = () => wss.connect(uri)
+    const connect = () => wss.connect({ uri })
     const send = () => wss.send(message);
     const clear = () => wss.clearLog();
 
     return (
         <Wrapper>
             <Group>
-                <UriInput connected={connected} type="text" placeholder="ws://..." defaultValue={uri} onChange={e => setUri(e.target.value)} />
-                <ConnectButton type="button" onClick={connect}>Connect</ConnectButton>
+                <UriInput 
+                    tabIndex={1} 
+                    type="text" 
+                    placeholder="ws://..." 
+                    defaultValue={uri} 
+                    connected={connected} 
+                    onChange={e => setUri(e.target.value)}
+                    onKeyDown={e => e.keyCode === 13 && connect()} />
+                <ConnectButton 
+                    tabIndex={2} 
+                    type="button" 
+                    onClick={connect}>
+                    Connect
+                </ConnectButton>
             </Group>
             <Group>
-                <RequestTextArea onChange={e => setMessage(e.target.value)}/>
-                <SendButton disabled={!connected} type="button" onClick={send}>Send</SendButton>
+                <RequestTextArea 
+                    tabIndex={3} 
+                    placeholder="Request payload" 
+                    onChange={e => setMessage(e.target.value)}/>
+                <SendButton 
+                    tabIndex={4} 
+                    disabled={!connected} 
+                    type="button" 
+                    onClick={send}>
+                    Send
+                </SendButton>
             </Group>
             <Group>
-                <Button type="button" onClick={clear}>Clear</Button>
+                <Button 
+                    tabIndex={5} 
+                    type="button" 
+                    onClick={clear}>
+                    Clear
+                </Button>
             </Group>
             <Group>
-                <Log source={log} render={(text: string) => text}/>
+                <Log source={log} />
             </Group>
         </Wrapper>
     );

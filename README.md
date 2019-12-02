@@ -1,2 +1,2 @@
-# yawc
+# YAWC
 Yet Another WebSocket Client

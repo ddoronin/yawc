@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { ILog } from './model';
+import { LogMessage } from '../models/ws-logger';
 
 const Wrapper = styled.div`
     display: flex;
@@ -35,7 +35,7 @@ const DataCol = styled.div`
     flex: 1;
 `;
 
-const InOutCol = styled.div`
+const InfoCol = styled.div`
     width: 20px;
 `;
 
@@ -47,9 +47,8 @@ const TimeCol = styled.div`
     width: 150px;
 `;
 
-export interface LogProps<Message> {
-    source: ILog<Message>[];
-    render: (m: Message) => React.ReactNode
+export interface LogProps {
+    source: LogMessage[];
 }
 
 interface MessageProps<Message> {
@@ -63,10 +62,27 @@ const In = styled.span`
     color: red;
 `
 
+const Ev = styled.span`
+    color: grey;
+`
+
+const Err = styled.span`
+    color: red;
+`
+
 function pad(num: number, size: number) {
     var s = String(num);
     while (s.length < (size || 2)) {s = "0" + s;}
     return s;
+}
+
+
+function Info({type}: {type: string}) {
+    if (type === 'req') return <>⬆</>;
+    if (type === 'res') return <In>⬇</In>;
+    if (type === 'event') return <Ev>[𝖎]</Ev>;
+    if (type === 'error') return <Err>𝓔</Err>;
+    return null;
 }
 
 function Channel<Message>({type, message, length, ts}: MessageProps<Message>) {
@@ -75,9 +91,9 @@ function Channel<Message>({type, message, length, ts}: MessageProps<Message>) {
     const ms = date.getMilliseconds()
     return (
         <Row isReq={isReq}>
-            <InOutCol>{isReq? '⬆': <In>⬇</In>}</InOutCol>
+            <InfoCol><Info type={type}/></InfoCol>
             <DataCol><pre>{message}</pre></DataCol>
-            <LenCol>{length}</LenCol>
+            <LenCol>{type === 'req' || type === 'res'? length: '--'}</LenCol>
             <TimeCol><small>{date.toLocaleTimeString()}</small>.<strong>{pad(ms, 3)}</strong></TimeCol>
         </Row>
     )
@@ -93,7 +109,7 @@ function Header() {
     )
 }
 
-export function Log<Message>({source, render}: LogProps<Message>) {
+export function Log<Message>({source}: LogProps) {
     return (
         <Wrapper>
             <Header/>

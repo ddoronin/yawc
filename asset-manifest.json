@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/yawc/static/css/main.21466e8e.chunk.css",
-    "main.js": "/yawc/static/js/main.2706fd2a.chunk.js",
-    "main.js.map": "/yawc/static/js/main.2706fd2a.chunk.js.map",
+    "main.js": "/yawc/static/js/main.ff179083.chunk.js",
+    "main.js.map": "/yawc/static/js/main.ff179083.chunk.js.map",
     "runtime-main.js": "/yawc/static/js/runtime-main.a70a9d68.js",
     "runtime-main.js.map": "/yawc/static/js/runtime-main.a70a9d68.js.map",
-    "static/js/2.bc266244.chunk.js": "/yawc/static/js/2.bc266244.chunk.js",
-    "static/js/2.bc266244.chunk.js.map": "/yawc/static/js/2.bc266244.chunk.js.map",
+    "static/js/2.413242c1.chunk.js": "/yawc/static/js/2.413242c1.chunk.js",
+    "static/js/2.413242c1.chunk.js.map": "/yawc/static/js/2.413242c1.chunk.js.map",
     "index.html": "/yawc/index.html",
-    "precache-manifest.2d0e88a1885a43da8e2e187ff9e375fb.js": "/yawc/precache-manifest.2d0e88a1885a43da8e2e187ff9e375fb.js",
+    "precache-manifest.6e3fbff9947e64f8fbbe75511bc712d7.js": "/yawc/precache-manifest.6e3fbff9947e64f8fbbe75511bc712d7.js",
     "service-worker.js": "/yawc/service-worker.js",
     "static/css/main.21466e8e.chunk.css.map": "/yawc/static/css/main.21466e8e.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.a70a9d68.js",
-    "static/js/2.bc266244.chunk.js",
+    "static/js/2.413242c1.chunk.js",
     "static/css/main.21466e8e.chunk.css",
-    "static/js/main.2706fd2a.chunk.js"
+    "static/js/main.ff179083.chunk.js"
   ]
 }

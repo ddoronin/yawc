@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/yawc/static/css/main.21466e8e.chunk.css",
-    "main.js": "/yawc/static/js/main.ff179083.chunk.js",
-    "main.js.map": "/yawc/static/js/main.ff179083.chunk.js.map",
+    "main.js": "/yawc/static/js/main.c0179231.chunk.js",
+    "main.js.map": "/yawc/static/js/main.c0179231.chunk.js.map",
     "runtime-main.js": "/yawc/static/js/runtime-main.a70a9d68.js",
     "runtime-main.js.map": "/yawc/static/js/runtime-main.a70a9d68.js.map",
     "static/js/2.413242c1.chunk.js": "/yawc/static/js/2.413242c1.chunk.js",
     "static/js/2.413242c1.chunk.js.map": "/yawc/static/js/2.413242c1.chunk.js.map",
     "index.html": "/yawc/index.html",
-    "precache-manifest.6e3fbff9947e64f8fbbe75511bc712d7.js": "/yawc/precache-manifest.6e3fbff9947e64f8fbbe75511bc712d7.js",
+    "precache-manifest.168e8c3a9fe03f37fa5230594967edb9.js": "/yawc/precache-manifest.168e8c3a9fe03f37fa5230594967edb9.js",
     "service-worker.js": "/yawc/service-worker.js",
     "static/css/main.21466e8e.chunk.css.map": "/yawc/static/css/main.21466e8e.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.a70a9d68.js",
     "static/js/2.413242c1.chunk.js",
     "static/css/main.21466e8e.chunk.css",
-    "static/js/main.ff179083.chunk.js"
+    "static/js/main.c0179231.chunk.js"
   ]
 }

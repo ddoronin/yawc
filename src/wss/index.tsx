@@ -55,7 +55,7 @@ export interface WssProps<Message> {
 }
 
 function WSS({model: wss}:  WssProps<string>) {
-    const [uri, setUri] = useState('');
+    const [uri, setUri] = useState('wss://echo.websocket.org');
     const [message, setMessage] = useState('');
     const log = useRxStateResult(wss.log$) || [];
     const connected = useRxStateResult(wss.isConnected$) || false;

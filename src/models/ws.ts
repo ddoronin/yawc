@@ -68,11 +68,15 @@ export default class Ws<Message> {
      */
     public disconnect() {
         if (this.current$) {
+            const isStopped = this.current$.isStopped;
             this.current$.unsubscribe();
             this.current$.complete();
             this.subscriptions.forEach(subscription => subscription.unsubscribe());
             this.subscriptions = [];
-            this.connected$.next({...this.connected$.value, connected: false});
+
+            if (!isStopped) {
+                this.connected$.next({...this.connected$.value, connected: false});
+            }
         }
     }
 

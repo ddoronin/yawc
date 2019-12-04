@@ -40,7 +40,7 @@ const LenCol = styled.div`
 `;
 
 const TimeCol = styled.div`
-    width: 100px;
+    width: 120px;
 `;
 
 export interface LogProps {

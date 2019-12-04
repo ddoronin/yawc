@@ -12,7 +12,7 @@ export const theme = {
         borderRadius: space
     },
     focus: {
-        color: '#40a9ff',
+        color: 'white',
         borderColor: '#40a9ff'
     },
     active: {
@@ -42,6 +42,7 @@ export const inputCss = {
         font-size: ${theme.typography.fontSize}px;
         height: ${theme.size.height}px;
         line-height: ${theme.size.lineHeight};
+        margin: ${theme.spacing(1)}px;
         outline: 0;
         transition: all .3s cubic-bezier(.645, .045, .355, 1);
     `,

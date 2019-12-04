@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 
 const Group = styled.div`
     display: flex;
-    margin: ${theme.spacing(1)}px;
     position: relative;
 `;
 
@@ -42,14 +41,6 @@ const RequestTextArea = styled(TextArea)`
     flex: 1;
 `;
 
-const SendButton = styled(Button)`
-    border-radius: 0 0 ${theme.spacing(1)}px 0;
-    bottom: 0;
-    position: absolute;
-    right: 0;
-    width: ${connectButtonWidth}px;
-`;
-
 export interface WssProps<Message> {
     model: WsLogger<Message>
 }
@@ -61,6 +52,7 @@ function WSS({model: wss}:  WssProps<string>) {
     const connected = useRxStateResult(wss.isConnected$) || false;
 
     const connect = () => wss.connect({ uri })
+    const disconnect = () => wss.disconnect();
     const send = () => wss.send(message);
     const clear = () => wss.clearLog();
 
@@ -78,8 +70,8 @@ function WSS({model: wss}:  WssProps<string>) {
                 <ConnectButton 
                     tabIndex={2} 
                     type="button" 
-                    onClick={connect}>
-                    Connect
+                    onClick={connected? disconnect: connect}>
+                    {connected? 'Disconnect': 'Connect'}
                 </ConnectButton>
             </Group>
             <Group>
@@ -87,15 +79,16 @@ function WSS({model: wss}:  WssProps<string>) {
                     tabIndex={3} 
                     placeholder="Request payload" 
                     onChange={e => setMessage(e.target.value)}/>
-                <SendButton 
+                
+            </Group>
+            <Group>
+                <Button 
                     tabIndex={4} 
                     disabled={!connected} 
                     type="button" 
                     onClick={send}>
                     Send
-                </SendButton>
-            </Group>
-            <Group>
+                </Button>
                 <Button 
                     tabIndex={5} 
                     type="button" 

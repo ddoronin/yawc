@@ -1,5 +1,5 @@
 import { Subject, Observable } from 'rxjs';
-import { scan, merge, map } from 'rxjs/operators';
+import { scan, merge, map, skip } from 'rxjs/operators';
 import { computed } from '../decorators/computed';
 import Ws, { WsError } from './ws'
 
@@ -40,7 +40,9 @@ export default class WsLogger<Message> extends Ws<Message> {
             }
             return { type: 'res' as 'res', ts: Date.now(), message: `${res}` };
         }));
-        const events$$ = this.connected$.pipe(map(({connected, uri}) => ({
+        const events$$ = this.connected$.pipe(
+            skip(1),
+            map(({connected, uri}) => ({
             type: 'event' as 'event',
             ts: Date.now(),
             message: connected? `${uri} [connected]`: `${uri? (uri + ' '): ''}[disconnected]`

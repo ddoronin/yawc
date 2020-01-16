@@ -38,7 +38,7 @@ export default class WsLogger<Message> extends Ws<Message> {
             if (isWsError(res)) {
                 return { type: 'error' as 'error', ts: Date.now(), message: `code: ${res.error.code} reason: '${res.error.reason}'` };
             }
-            return { type: 'res' as 'res', ts: Date.now(), message: `${res}` };
+            return { type: 'res' as 'res', ts: Date.now(), message: res as any };
         }));
         const events$$ = this.connected$.pipe(
             skip(1),

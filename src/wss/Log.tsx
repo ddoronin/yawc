@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled, { css } from 'styled-components';
 import { LogMessage } from '../models/ws-logger';
 import { theme } from '../components';
@@ -53,6 +53,17 @@ const ArrowUp = ({ width, height }: SvgParams) => (
             fillRule="evenodd" 
             d="M4 6v7h4V6h4L6 0 0 6z">
         </path>
+    </Svg>
+)
+
+const BinaryIcon = ({ width, height }: SvgParams) => (
+    <Svg
+        fill='white'
+        width={width} 
+        height={height} 
+        viewBox={`-1 0 512 512`} 
+        version="1.1">
+        <path d="m195 362h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m75 482h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/><path d="m475 362h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m355 482h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/><path d="m195 181h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m75 301h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/><path d="m335 181h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m495 301h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/><path d="m55 0h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m215 120h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/><path d="m475 0h-20c-19.300781 0-35 15.699219-35 35v80c0 19.300781 15.699219 35 35 35h20c19.300781 0 35-15.699219 35-35v-80c0-19.300781-15.699219-35-35-35zm5 115c0 2.757812-2.242188 5-5 5h-20c-2.757812 0-5-2.242188-5-5v-80c0-2.757812 2.242188-5 5-5h20c2.757812 0 5 2.242188 5 5zm0 0"/><path d="m355 120h-15v-105c0-8.285156-6.714844-15-15-15h-30c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h15v90h-15c-8.285156 0-15 6.714844-15 15s6.714844 15 15 15h60c8.285156 0 15-6.714844 15-15s-6.714844-15-15-15zm0 0"/>
     </Svg>
 )
 
@@ -126,7 +137,7 @@ function Info({type}: {type: string}) {
         case 'req': return <ArrowUp {...size}/>;
         case 'res': return <ArrowDown {...size}/>;
         case 'event': return <Warning {...size}/>;
-        case 'error': return <Err>Error</Err>;
+        case 'error': return <Err>ER</Err>;
         default: return null;
     }
 }
@@ -144,16 +155,45 @@ function Channel<Message>({type, message, length, ts}: MessageProps<Message>) {
     const [expanded, setExpanded] = useState(false);
     const isReq = type === 'req';
     const date = new Date(ts);
-    const ms = date.getMilliseconds()
+    const ms = date.getMilliseconds();
+    const isBinary = typeof message === 'object';
+    const [fullMsg, setFullMsg] = useState<string | null>(null);
+    const [binMsg, setBinMsg] = useState<string | null>(null);
+    useEffect(() => {
+        if (isBinary) {
+            const textEffect = async() => {
+                const abuf = await (message as any).arrayBuffer() as ArrayBuffer;
+                const view = new Uint8Array(abuf);
+                const binary = (view as any).map((i: number) => ('0' + i.toString(16)).slice(-2)).join('');
+                const text = await (message as any).text();
+                setBinMsg('0x' + binary.replace(/.{4}/g, (chrs: string) => ' ' + chrs));
+                setFullMsg(text);
+            };
+            textEffect();
+        } else {
+            setFullMsg(`${message}`);
+        }
+    }, [message, isBinary]);
     return (
         <>
-        <Row isReq={isReq}>
-            <InfoCol><Info type={type}/></InfoCol>
-            <DataCol onClick={() => setExpanded(!expanded)}>{toShortString(message)}</DataCol>
-            <LenCol>{type === 'req' || type === 'res'? length: '--'}</LenCol>
-            <TimeCol><small>{date.toLocaleTimeString()}</small>.<strong>{pad(ms, 3)}</strong></TimeCol>
-        </Row>
-        {expanded && <Row isReq={isReq}><pre style={{overflow: 'auto', padding: 20}}>{message}</pre></Row>}
+            <Row isReq={isReq}>
+                <InfoCol><Info type={type}/></InfoCol>
+                <DataCol onClick={() => setExpanded(!expanded)}>
+                    {isBinary && <><BinaryIcon width={14} height={14}/>{' '}</>}
+                    {fullMsg && toShortString(fullMsg)}
+                </DataCol>
+                <LenCol>{type === 'req' || type === 'res'? (isBinary? (message as unknown as Blob).size: length): '--'}</LenCol>
+                <TimeCol><small>{date.toLocaleTimeString()}</small>.<strong>{pad(ms, 3)}</strong></TimeCol>
+            </Row>
+            {expanded && <>
+                <Row isReq={isReq}>
+                    <pre style={{overflow: 'auto', padding: 20}}>
+                        {binMsg && <small style={{color: 'aquamarine'}}>{binMsg}</small>}
+                        {binMsg && <br/>}
+                        {fullMsg}
+                    </pre>
+                </Row>
+            </>}
         </>
     )
 }

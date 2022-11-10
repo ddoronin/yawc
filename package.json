@@ -42,7 +42,7 @@
     ]
   },
   "devDependencies": {
-    "electron": "^7.1.2",
+    "electron": "^18.3.7",
     "gh-pages": "^2.1.1"
   }
 }

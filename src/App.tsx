@@ -10,11 +10,29 @@ const H1 = styled.h1`
   color: white;
 `
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+`
+
+
 const App: React.FC = () => {
   return (
     <div className="App">
       <H1><GithubLink href="https://github.com/ddoronin/yawc"/> YAWC</H1>
-      <WSS model={new WsLogger<string>()}/>
+      <Grid>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+        <WSS model={new WsLogger<string>()}/>
+      </Grid>
     </div>
   );
 }

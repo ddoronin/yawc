@@ -8,6 +8,8 @@ import { Log } from './Log';
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+    border: 1px solid grey;
+    border-radius: ${theme.spacing(1)}px;
 `
 
 const Group = styled.div`
@@ -46,7 +48,7 @@ export interface WssProps<Message> {
 }
 
 function WSS({model: wss}:  WssProps<string>) {
-    const [uri, setUri] = useState('wss://echo.websocket.org');
+    const [uri, setUri] = useState('ws://localhost:4000/ws');
     const [message, setMessage] = useState('');
     const log = useRxStateResult(wss.log$) || [];
     const connected = useRxStateResult(wss.isConnected$) || false;

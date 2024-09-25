@@ -10,11 +10,11 @@ const H1 = styled.h1`
   color: white;
 `;
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-`;
+// const Grid = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 1fr;
+//   gap: 20px;
+// `;
 
 const App: React.FC = () => {
   return (
@@ -22,9 +22,9 @@ const App: React.FC = () => {
       <H1>
         <GithubLink href="https://github.com/ddoronin/yawc" /> YAWC
       </H1>
-      <Grid>
+      <div>
         <WSS model={new WsLogger<string>()} />
-      </Grid>
+      </div>
     </div>
   );
 };
